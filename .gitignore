@@ -2,3 +2,4 @@
 pyenv/
 .env.*
 *.pyc
+django-container/base_django/static/
