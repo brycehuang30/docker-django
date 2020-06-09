@@ -52,9 +52,9 @@ DATABASE=postgres
 
 And for `.env.prod.db`
 ```
-SQL_DATABASE=django_postgres_prod
-SQL_USER=**postgres_admin**
-SQL_PASSWORD=**postgres_passwd**
+POSTGRES_DATABASE=django_postgres_prod
+POSTGRES_USER=**postgres_admin**
+POSTGRES_PASSWORD=**postgres_passwd**
 ```
 
 ### Run under production mode
