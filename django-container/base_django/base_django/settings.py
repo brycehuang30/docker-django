@@ -55,7 +55,7 @@ ROOT_URLCONF = 'base_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,3 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# Frontend static files (css, js, and images, not include html. html should be put in frontend/)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/static"),
+]

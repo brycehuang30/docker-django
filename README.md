@@ -28,13 +28,17 @@ DATABASE=postgres
 docker-compose up -d --build
 ```
 
+### Update static files after frontend deployment
+```
+docker exec docker-django_web_1 python manage.py collectstatic --no-input
+```
+
 ### Terminate under development mode
 ```
 docker-compose down -v
 ```
 
 ## Production
-
 
 ### Setup environment
 Need to setup `.env.prod` file under project root directory
@@ -81,6 +85,21 @@ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstati
 ```
 docker-compose -f docker-compose.prod.yml down -v
 ```
+
+## Frontend
+
+### HTML
+HTML files should be put in `django-container/base_django/frontend/`
+
+This pages can be visited via `http://yourdomain.com/path/to/your/file`
+
+### SRCs
+Other packed/translated frondend sources should be put in `django-container/base_django/frontend/static`
+
+This sources can be access via `http://yourdomain.com/static/your_srouce_name`
+
+### Vue configs
+TBD.
 
 ## Reference
 All of the settings are refering [this guide](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
