@@ -4,7 +4,9 @@
 
 ### Setup environment
 Need to setup `.env.dev` file under project root directory
+
 You can configure it based on `.env.dev-sample`
+
 Here is an exmaple, your should change the strings surrounded by \*\*
 ```
 DEBUG=1
@@ -36,7 +38,9 @@ docker-compose down -v
 
 ### Setup environment
 Need to setup `.env.prod` file under project root directory
+
 You can configure it based on `.env.prod-sample`
+
 Here is an exmaple, your should change the strings surrounded by \*\*
 ```
 DEBUG=0
@@ -53,6 +57,7 @@ DATABASE=postgres
 ```
 
 And for `.env.prod.db`
+
 You can configure it based on `.env.prod.db-sample`
 ```
 POSTGRES_DATABASE=django_postgres_prod
