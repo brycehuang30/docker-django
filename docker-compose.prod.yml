@@ -9,7 +9,7 @@ services:
         expose:
             - 8000
         volumes:
-            - ./django-container/base_django/frontend/:/usr/src/app/frontend/
+            - ./django-container/base_django/frontend/:/home/app/web/frontend/
             - static_volume:/home/app/web/static
         env_file:
             - ./.env.prod
