@@ -103,3 +103,21 @@ TBD.
 
 ## Reference
 All of the settings are refering [this guide](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+
+
+## Troubleshooting
+
+###  ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+Q: When I run "docker-compose build" command, I got this:
+```
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+```
+
+A: You should run the docker commands with "sudo", for example "sudo docker-compose build", if you encounter this error.
+
+### Bad Request (400)
+Q: While the docker-compose run successfully, I get Bad Request (400) when accessing my website(index.html) or static files
+
+A: Check the .env.dev or .env.prod file. You might forget to change the default domain name "yourdomain.com" to your domain name. After changing the domain name, you can correctly accessing your frontend websites.
