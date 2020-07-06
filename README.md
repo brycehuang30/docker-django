@@ -72,19 +72,47 @@ POSTGRES_PASSWORD=**postgres_passwd**
 ### Run under production mode
 ```
 # build and start
-docker-compose -f docker-compose.prod.yml up -d --build
+sudo docker-compose -f docker-compose.prod.yml up -d --build
 
 # setup database
-docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+sudo docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
 
 # collect static files, including http://host/admin files
-docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+sudo docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
 ```
 
 ### Terminate under production mode
 ```
-docker-compose -f docker-compose.prod.yml down -v
+sudo docker-compose -f docker-compose.prod.yml down -v
 ```
+
+### Use PostgreSQL Database
+Before using database, you need to create a database (django does not automatically create database for PostgreSQL)
+
+```
+# start shell in PostgreSQL container
+sudo docker exec -it docker-django_db_1 /bin/sh
+
+# change user so that we can login/connect to the PostgreSQL db
+su postgres
+
+# connect db
+psql -d postgres -U postgres_admin -W
+
+# enter password (defualt: postgres_passwd)
+*****
+
+# create production database
+CREATE DATABASE django_postgres_prod;
+```
+
+Then you can use `python manage.py initadmin` in `web` container to create a default super user
+
+(with this command `sudo docker-compose -f docker-compose.prod.yml exec web python manage.py initadmin`)
+
+You can login the super user with **admin/admin** (account/password) at http://yourdomain.com/admin/,
+
+and you should **create a new super user and delete this default super user** as soon as possible
 
 ## Frontend
 
