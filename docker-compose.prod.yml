@@ -25,10 +25,18 @@ services:
         build: ./nginx
         ports:
             - 80:80
+            - 443:443
+        environment:
+            ENVSUBST_VARS: FQDN
+            FQDN: brycehuang.com
+        env_file:
+            - ./.env.prod.nginx
         volumes:
             - static_volume:/home/app/web/static
+            - letsencrypt:/etc/letsencrypt
         depends_on:
             - web
 volumes:
     postgres_data:
     static_volume:
+    letsencrypt:
