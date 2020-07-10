@@ -34,6 +34,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default="localhost 127.0.
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'api.apps.ApiConfig',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -129,4 +131,11 @@ STATIC_ROOT = os.path.join(os.environ.get("APP_PATH", BASE_DIR), "static")
 # Frontend static files (css, js, and images, not include html. html should be put in frontend/)
 STATICFILES_DIRS = [
     os.path.join(os.environ.get("APP_PATH", BASE_DIR), "frontend/static"),
+]
+
+# Set CORS whitlist
+# https://github.com/adamchainz/django-cors-headers
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080",
+    "http://brycehuang.com",
 ]
