@@ -136,6 +136,9 @@ STATICFILES_DIRS = [
 # Set CORS whitlist
 # https://github.com/adamchainz/django-cors-headers
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8080",
     "http://brycehuang.com",
+]
+
+CORS_ORIGIN_REGEX_WHITELIST = [
+    "^http://localhost:[0-9]{1,5}$",
 ]
