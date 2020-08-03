@@ -135,9 +135,12 @@ STATICFILES_DIRS = [
 
 # Set CORS whitlist
 # https://github.com/adamchainz/django-cors-headers
-CORS_ORIGIN_WHITELIST = [
-    "http://brycehuang.com",
-]
+# 'DJANGO_CORS_WHITLIST' should be a single string of hosts with a space between each.
+# For example: 'DJANGO_CORS_WHITLIST=http://localhost http://127.0.0.1'
+CORS_ORIGIN_WHITELIST = os.environ.get(
+    "DJANGO_CORS_WHITLIST",
+    default="http://localhost http://127.0.0.1"
+).split(" ")
 
 CORS_ORIGIN_REGEX_WHITELIST = [
     "^http://localhost:[0-9]{1,5}$",
