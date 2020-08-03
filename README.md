@@ -1,5 +1,19 @@
 # docker-django
 
+## Prerequisite
+You should install docker and docker-compose before using this project
+
+### for Linux/macOS
+```
+# install docker.io
+sudo apt-get update
+sudo apt-get install docker.io
+
+# install docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
 ## Development
 
 ### Setup environment
@@ -7,16 +21,16 @@ Need to setup `.env.dev` file under project root directory
 
 You can configure it based on `.env.dev-sample`
 
-Here is an exmaple, your should change the strings surrounded by \*\*
+Here is an exmaple, your should change the strings surrounded by \$\{\}
 ```
 DEBUG=1
-SECRET_KEY=**'YOUR_KEY'**
+SECRET_KEY=${'YOUR_KEY'}
 DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
 
 SQL_ENGINE=django.db.backends.postgresql
 SQL_DATABASE=django_postgres_dev
-SQL_USER=**postgres_admin**
-SQL_PASSWORD=**postgres_passwd**
+SQL_USER=${postgres_admin}
+SQL_PASSWORD=${postgres_passwd}
 SQL_HOST=db
 SQL_PORT=5432
 DATABASE=postgres
@@ -45,16 +59,16 @@ Need to setup `.env.prod` file under project root directory
 
 You can configure it based on `.env.prod-sample`
 
-Here is an exmaple, your should change the strings surrounded by \*\*
+Here is an exmaple, your should change the strings surrounded by \$\{\}
 ```
 DEBUG=0
-SECRET_KEY=**'YOUR_KEY'**
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] **yourdomain.com**
+SECRET_KEY=${'YOUR_KEY'}
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] ${yourdomain.com}
 
 SQL_ENGINE=django.db.backends.postgresql
 SQL_DATABASE=django_postgres_prod
-SQL_USER=**postgres_admin**
-SQL_PASSWORD=**postgres_passwd**
+SQL_USER=${postgres_admin}
+SQL_PASSWORD=${postgres_passwd}
 SQL_HOST=db
 SQL_PORT=5432
 DATABASE=postgres
@@ -65,8 +79,8 @@ And for `.env.prod.db`
 You can configure it based on `.env.prod.db-sample`
 ```
 POSTGRES_DATABASE=django_postgres_prod
-POSTGRES_USER=**postgres_admin**
-POSTGRES_PASSWORD=**postgres_passwd**
+POSTGRES_USER=${postgres_admin}
+POSTGRES_PASSWORD=${postgres_passwd}
 ```
 
 ### Run under production mode
