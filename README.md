@@ -83,6 +83,29 @@ POSTGRES_USER=${postgres_admin}
 POSTGRES_PASSWORD=${postgres_passwd}
 ```
 
+#### Setup HTTPs
+This project uses `nginx-certbot` to setup https (by certbot and let's encrypt).
+
+This is a free solution to establish https.
+
+You have to replace the environment variable `FQDN` in `docker-compose.prod.yml` with your domain name to make this work
+
+```
+# in docker-compose.prod.yml
+...
+nginx:
+        build: ./nginx
+        ...
+        environment:
+            ENVSUBST_VARS: FQDN
+            FQDN: ${YOUR_DOMAIN_NAME}
+        ...
+...
+```
+You can use `logs -f` docker-compose command to check whether the https successfully
+
+if it goes wrong, you will see `Cerbot failed for ${YOUR_DOMAIN_NAME}. Check the logs for details.`
+
 ### Run under production mode
 ```
 # build and start
@@ -127,6 +150,7 @@ Then you can use `python manage.py initadmin` in `web` container to create a def
 You can login the super user with **admin/admin** (account/password) at http://yourdomain.com/admin/,
 
 and you should **create a new super user and delete this default super user** as soon as possible
+
 
 ## Frontend
 
