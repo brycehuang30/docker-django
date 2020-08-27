@@ -6,9 +6,9 @@ server {
 
     listen 443 ssl;
 
-    server_name ${FQDN};
-    ssl_certificate /etc/letsencrypt/live/${FQDN}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${FQDN}/privkey.pem;
+    server_name ${DOMAIN_NAME};
+    ssl_certificate /etc/ssl/${DOMAIN_NAME}.pem;
+    ssl_certificate_key /etc/ssl/${DOMAIN_NAME}.key;
 
     location / {
         proxy_pass http://webserver;

@@ -6,3 +6,5 @@ django-container/base_django/static/
 django-container/base_django/frontend/
 settings.json
 .DS_Store
+*.key
+*.pem
