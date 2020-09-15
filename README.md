@@ -14,44 +14,6 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-## Development
-
-### Setup environment
-Need to setup `.env.dev` file under project root directory
-
-You can configure it based on `.env.dev-sample`
-
-Here is an exmaple, your should change the strings surrounded by \$\{\}
-```
-DEBUG=1
-SECRET_KEY=${'YOUR_KEY'}
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-
-SQL_ENGINE=django.db.backends.postgresql
-SQL_DATABASE=django_postgres_dev
-SQL_USER=${postgres_admin}
-SQL_PASSWORD=${postgres_passwd}
-SQL_HOST=db
-SQL_PORT=5432
-DATABASE=postgres
-```
-
-
-### Run under development mode
-```
-docker-compose up -d --build
-```
-
-### Update static files after frontend deployment
-```
-docker exec docker-django_web_1 python manage.py collectstatic --no-input
-```
-
-### Terminate under development mode
-```
-docker-compose down -v
-```
-
 ## Production
 
 ### Setup environment
@@ -84,27 +46,16 @@ POSTGRES_PASSWORD=${postgres_passwd}
 ```
 
 #### Setup HTTPs
-This project uses `nginx-certbot` to setup https (by certbot and let's encrypt).
+This project uses `cloudflare free ssl/tls` to setup https with nginx
 
 This is a free solution to establish https.
 
-You have to replace the environment variable `FQDN` in `docker-compose.prod.yml` with your domain name to make this work
+Please visit [cloudflare ssl](https://www.cloudflare.com/ssl/) to get a CA signed by cloudflare,
 
-```
-# in docker-compose.prod.yml
-...
-nginx:
-        build: ./nginx
-        ...
-        environment:
-            ENVSUBST_VARS: FQDN
-            FQDN: ${YOUR_DOMAIN_NAME}
-        ...
-...
-```
-You can use `logs -f` docker-compose command to check whether the https successfully
+following is where you can generate ssl key pair after login into dashboard
+![](https://i.imgur.com/RRUM7ZK.png)
 
-if it goes wrong, you will see `Cerbot failed for ${YOUR_DOMAIN_NAME}. Check the logs for details.`
+You should read `nginx/ssl/README.md` for futher configuration
 
 ### Run under production mode
 ```
@@ -150,6 +101,45 @@ Then you can use `python manage.py initadmin` in `web` container to create a def
 You can login the super user with **admin/admin** (account/password) at http://yourdomain.com/admin/,
 
 and you should **create a new super user and delete this default super user** as soon as possible
+
+
+## Development (currently broken)
+
+### Setup environment
+Need to setup `.env.dev` file under project root directory
+
+You can configure it based on `.env.dev-sample`
+
+Here is an exmaple, your should change the strings surrounded by \$\{\}
+```
+DEBUG=1
+SECRET_KEY=${'YOUR_KEY'}
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+
+SQL_ENGINE=django.db.backends.postgresql
+SQL_DATABASE=django_postgres_dev
+SQL_USER=${postgres_admin}
+SQL_PASSWORD=${postgres_passwd}
+SQL_HOST=db
+SQL_PORT=5432
+DATABASE=postgres
+```
+
+
+### Run under development mode
+```
+docker-compose up -d --build
+```
+
+### Update static files after frontend deployment
+```
+docker exec docker-django_web_1 python manage.py collectstatic --no-input
+```
+
+### Terminate under development mode
+```
+docker-compose down -v
+```
 
 
 ## Frontend
